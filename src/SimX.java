@@ -7,7 +7,7 @@ public class SimX extends Thread implements Runnable{
     ArrayList<Particle> particleList = new ArrayList<Particle>();
 
     public SimX (){
-
+//
 
     }
     @Override

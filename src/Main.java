@@ -11,8 +11,10 @@ public class Main extends Application {
         Pane root = new Pane();
         primaryStage.setTitle("Hello World");
         root.getChildren().add(new Circle(10,10,100));
+        Scene sx = new Scene(root, 1000, 650);
 
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(sx);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

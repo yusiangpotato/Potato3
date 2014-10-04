@@ -5,7 +5,7 @@ import javafx.scene.layout.VBox;
 public class ControlPanelHelper {
 
 	public VBox createControlPanel() {
-		VBox vb = new VBox();
+		VBox vb = new VBox(10); //spacing between elements
 		vb.setAlignment(Pos.CENTER);
 		
 		Button btnTemp1 = new Button("1");

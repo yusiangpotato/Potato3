@@ -8,12 +8,13 @@ public class MenuBarHelper {
 	public MenuBar createMenuBar(Stage stage) {
 		MenuBar menubar = new MenuBar();
 		
-		Menu helpMenu = new Menu("Help");
-		MenuItem aboutMenuItem = new MenuItem("About");
-		MenuItem instructionsMenuItem = new MenuItem("Instructions");
-		helpMenu.getItems().addAll(aboutMenuItem, instructionsMenuItem);
+		Menu menuHelp = new Menu("Help");
+		MenuItem menuItemAbout = new MenuItem("About");
 		
-		menubar.getMenus().addAll(helpMenu);
+		MenuItem menuItemInstructions = new MenuItem("Instructions");
+		menuHelp.getItems().addAll(menuItemAbout, menuItemInstructions);
+		
+		menubar.getMenus().addAll(menuHelp);
 		
 		return menubar;
 	}

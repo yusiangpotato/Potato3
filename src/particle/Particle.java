@@ -1,3 +1,5 @@
+package particle;
+
 import javafx.scene.shape.Circle;
 
 import java.util.Random;

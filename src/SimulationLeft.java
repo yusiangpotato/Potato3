@@ -8,9 +8,9 @@ public class SimulationLeft {
     ArrayList<Particle> particleList = new ArrayList<Particle>();
     Pane p;
     int stepn =0;
-
-
     Label Lstepn = new Label(stepn+"");
+
+
 	public Pane createSimulation() {
 		p = new Pane();
 		p.getChildren().addAll(Lstepn);

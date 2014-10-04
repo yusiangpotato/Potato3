@@ -9,6 +9,7 @@ import java.util.Random;
  */
 public class Particle extends Circle{
     static Random r = new Random();
+    String type;
     int theta=r.nextInt(360);
 
 

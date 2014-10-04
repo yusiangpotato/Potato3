@@ -8,7 +8,7 @@ public class SimX extends Thread implements Runnable{
 
     public SimX (){
 
-//
+////
     }
     @Override
     public void run(){

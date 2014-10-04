@@ -2,7 +2,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class StageSecondaryHelper {
-
+    SimX simX;
 	public BorderPane createSecondaryStage(Stage stage) {
 		BorderPane bp = new BorderPane();
 		
@@ -14,8 +14,13 @@ public class StageSecondaryHelper {
 		bp.setLeft(sl.createSimulation());
 		SimulationRight sr = new SimulationRight();
 		bp.setRight(sr.createSimulation());
-		
+		//Create the SimulationX
+        simX=new SimX(sl,sr);
+
 		return bp;
 	}
 
+    public SimX getSimX() {
+        return simX;
+    }
 }

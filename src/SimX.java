@@ -1,3 +1,5 @@
+import javafx.application.Platform;
+
 import java.util.ArrayList;
 
 /**
@@ -13,6 +15,13 @@ public class SimX extends Thread implements Runnable{
     }
     @Override
     public void run(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                sl.step();
+                sr.step();
+            }
+        });
 
     }
 }

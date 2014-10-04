@@ -12,7 +12,9 @@ public class StageAboutHelper {
 		BorderPane bp = new BorderPane();
 		s.setScene(new Scene(bp));
 		
-		Text txtAbout = new Text("Temp"); //TODO
+		Text txtAbout = new Text("This program is created by the four geniuses from M14404\n" +
+                "Ian Yong, Leong Yu Siang, Rachel Chan and Winsen Alfiano Hijani.\n" +
+                "© All rights reserved.");
 		txtAbout.setTextAlignment(TextAlignment.CENTER);
 		
 		bp.setCenter(txtAbout);

@@ -13,6 +13,9 @@ public class SimulationLeft {
 
 	public Pane createSimulation() {
 		p = new Pane();
+        p.setMinSize(500f,650f);
+        p.setPrefSize(500f,650f);
+        p.setMaxSize(500f,650f);
 		p.getChildren().addAll(Lstepn);
 		return p;
 	}

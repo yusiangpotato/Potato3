@@ -8,10 +8,12 @@ public class StageSecondaryHelper {
 		
 		MenuBarHelper mbh = new MenuBarHelper();
 		bp.setTop(mbh.createMenuBar(stage));
-		//bp.setLeft();
-		//bp.setCenter();
 		ControlPanelHelper cph = new ControlPanelHelper();
-		bp.setRight(cph.createControlPanel());
+		bp.setCenter(cph.createControlPanel());
+		SimulationLeft sl = new SimulationLeft();
+		bp.setLeft(sl.createSimulation());
+		SimulationRight sr = new SimulationRight();
+		bp.setRight(sr.createSimulation());
 		
 		return bp;
 	}

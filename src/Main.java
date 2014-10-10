@@ -13,7 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         StageSecondaryHelper ssh = new StageSecondaryHelper();
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Chemister Project");
 
         Scene sx = new Scene(ssh.createSecondaryStage(primaryStage), 1300, 650);
         primaryStage.setScene(sx);
@@ -27,4 +27,12 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        SimXService.shutdown();
+    }
+
+
 }

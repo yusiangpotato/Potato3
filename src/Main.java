@@ -19,7 +19,7 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
         SimXService = Executors.newSingleThreadScheduledExecutor();
-        SimXService.scheduleWithFixedDelay(ssh.getSimX(), 0, 10, TimeUnit.MILLISECONDS);
+        SimXService.scheduleWithFixedDelay(ssh.getSimX(), 0, 100, TimeUnit.MILLISECONDS);
 
     }
 

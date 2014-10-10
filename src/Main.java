@@ -14,12 +14,12 @@ public class Main extends Application {
         StageSecondaryHelper ssh = new StageSecondaryHelper();
         primaryStage.setTitle("Chemister Project");
 
-        Scene sx = new Scene(ssh.createSecondaryStage(primaryStage), 1300, 650);
+        Scene sx = new Scene(ssh.createSecondaryStage(primaryStage), 1300, 700);
         primaryStage.setScene(sx);
         primaryStage.setResizable(false);
         primaryStage.show();
         SimXService = Executors.newSingleThreadScheduledExecutor();
-        SimXService.scheduleWithFixedDelay(ssh.getSimX(), 0, 100, TimeUnit.MILLISECONDS);
+        SimXService.scheduleWithFixedDelay(ssh.getSimX(), 0, 10, TimeUnit.MILLISECONDS);
 
     }
 

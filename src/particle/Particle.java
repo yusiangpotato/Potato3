@@ -13,13 +13,13 @@ public class Particle extends Circle {
     Particle slave = null;
 
     String type;
-    int theta;
-    int v;
+    double theta; //Radians
+    double v;
     int sz;
 
-    public Particle(int size, Paint paint, int vx) {
-        super(size, paint);
-        theta = r.nextInt(360);
+    public Particle(double x, double y, int size, Paint paint, double vx) {
+        super(x,y,size, paint);
+        theta = r.nextDouble()*Math.PI;
         v = vx;
         sz = size;
 
@@ -44,11 +44,29 @@ public class Particle extends Circle {
         this.type = type;
     }
 
-    public int getTheta() {
+    public double getTheta() {
         return theta;
     }
 
-    public void setTheta(int theta) {
+    public void setTheta(double theta) { // 0<Theta<2PI
+        while(theta<0) theta+=2*Math.PI;
+        while(theta>2*Math.PI) theta-=2*Math.PI;
         this.theta = theta;
+    }
+
+    public double getV() {
+        return v;
+    }
+
+    public void setV(double v) {
+        this.v = v;
+    }
+
+    public int getSz() {
+        return sz;
+    }
+
+    public void setSz(int sz) {
+        this.sz = sz;
     }
 }

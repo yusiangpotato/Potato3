@@ -15,6 +15,7 @@ public class Particle extends Circle {
     String type;
     double theta; //Radians
     double v;
+    double m;
     int sz;
 
     public Particle(double x, double y, int size, Paint paint, double vx) {

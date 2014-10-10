@@ -33,11 +33,11 @@ public class SimulationLeft {
     public void step() {
         stepn++;
         Lstepn.setText(stepn + "");
-        for(Particle px: particleList){ //It 1, move
+        for(Particle px: particleList){ //Step 1, move
             px.setCenterX(px.getCenterX()+px.getV()*Math.cos(px.getTheta()));
             px.setCenterY(px.getCenterY() + px.getV() * Math.sin(px.getTheta()));
         }
-        for(Particle px: particleList){ //It 2, check wall collision
+        for(Particle px: particleList){ //Step 2, check wall collision
             if(px.getCenterX()+px.getSz()>Xsz) { //Negate and add PI
                 px.setTheta(Math.PI-px.getTheta());
                 if(ENH_CULL) px.setCenterX(Xsz-px.getSz()-1);
@@ -53,6 +53,11 @@ public class SimulationLeft {
             if(px.getCenterY()-px.getSz()<0) { //Negate
                 px.setTheta(-px.getTheta());
                 if(ENH_CULL) px.setCenterY(px.getSz()+1);
+            }
+        }
+        for(Particle p1 : particleList){//Step 3, particle-particle collisions
+            for(Particle p2 : particleList){
+
             }
         }
 

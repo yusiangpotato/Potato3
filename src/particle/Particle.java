@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * Created by Yusiang on 4/10/2014.
  */
-public class Particle extends Circle{
+public class Particle extends Circle {
     static Random r = new Random();
     Particle slave = null;
 
@@ -16,11 +16,12 @@ public class Particle extends Circle{
     int theta;
     int v;
     int sz;
+
     public Particle(int size, Paint paint, int vx) {
         super(size, paint);
-        theta=r.nextInt(360);
-        v=vx;
-        sz=size;
+        theta = r.nextInt(360);
+        v = vx;
+        sz = size;
 
     }
 

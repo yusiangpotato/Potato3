@@ -1,7 +1,5 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.util.concurrent.Executors;
@@ -10,8 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
     ScheduledExecutorService SimXService;
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         StageSecondaryHelper ssh = new StageSecondaryHelper();
         primaryStage.setTitle("Chemister Project");
 
@@ -20,7 +19,8 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
         SimXService = Executors.newSingleThreadScheduledExecutor();
-        SimXService.scheduleWithFixedDelay(ssh.getSimX(),0,100, TimeUnit.MILLISECONDS);
+        SimXService.scheduleWithFixedDelay(ssh.getSimX(), 0, 100, TimeUnit.MILLISECONDS);
+
     }
 
 

@@ -12,7 +12,7 @@ public class Particle extends Circle {
     static Random r = new Random();
     Particle slave = null;
     boolean isSlaved = false;
-
+    double storedEnergy=0;
     String type;
     double theta; //Radians
     double v;
@@ -113,4 +113,11 @@ public class Particle extends Circle {
         return getCenterY();
     }
 
+    public double getStoredEnergy() {
+        return storedEnergy;
+    }
+
+    public void setStoredEnergy(double storedEnergy) {
+        this.storedEnergy = storedEnergy;
+    }
 }

@@ -78,7 +78,7 @@ public class SimulationLeft {
                     double phi = Math.atan((p2y - p1y) / (p2x - p1x));
                     if (p2.getCenterX() - p1.getCenterX() < 0) phi += Math.PI;
                     //if (phi < 2 * Math.PI) phi += 2 * Math.PI;
-                    boolean combine = false, p1explode = false, p2explode = false, nothing = false;
+                    boolean combine = false, explode = false, nothing = false;
                     //TODO Determine conditions here
                     nothing = true;
 
@@ -90,11 +90,11 @@ public class SimulationLeft {
                             p1.setSlave(p2);
                         }
                     }
-                    if (p1explode) {//p1 has slave and successful collision -> p1 explodes
-
-                    }
-                    if (p2explode) {//Ditto
-
+                    if (explode) {//p1 has slave and successful collision -> p1 explodes and vice versa
+                    	if(p1.hasSlave())
+                    		p1.rmSlave();
+                    	if(p2.hasSlave())
+                    		p2.rmSlave();
                     }
                     if (nothing) {//No success, see https://en.wikipedia.org/wiki/Elastic_collision#Two-Dimensional_Collision_With_Two_Moving_Objects
                         //http://williamecraver.wix.com/elastic-equations

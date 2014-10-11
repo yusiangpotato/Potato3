@@ -11,6 +11,7 @@ import java.util.Random;
 public class Particle extends Circle {
     static Random r = new Random();
     Particle slave = null;
+    boolean isSlaved = false;
 
     String type;
     double theta; //Radians
@@ -26,7 +27,6 @@ public class Particle extends Circle {
         m = ms;
     }
 
-
     // Get/set
 
     public Particle getSlave() {
@@ -35,6 +35,12 @@ public class Particle extends Circle {
 
     public void setSlave(Particle slave) {
         this.slave = slave;
+        slave.setSlaved(true);
+    }
+
+    public void rmSlave(){
+        slave.setSlaved(false);
+        slave = null;
     }
 
     public String getType() {
@@ -77,5 +83,13 @@ public class Particle extends Circle {
 
     public void setM(double m) {
         this.m = m;
+    }
+
+    public boolean isSlaved() {
+        return isSlaved;
+    }
+
+    public void setSlaved(boolean isSlaved) {
+        this.isSlaved = isSlaved;
     }
 }

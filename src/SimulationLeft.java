@@ -1,6 +1,8 @@
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
+import javafx.stage.Stage;
 import particle.*;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class SimulationLeft {
         p.setPrefSize(Xsz, Ysz);
         p.setMaxSize(Xsz, Ysz);
         p.getChildren().addAll(Lstepn);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 101; i++) {
             particleList.add(new Anion(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
             particleList.add(new Hydron(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
             particleList.add(new Hydroxide(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
@@ -34,9 +36,10 @@ public class SimulationLeft {
         return p;
     }
 
-    public void step() {
+    public void step(){
         stepn++;
         Lstepn.setText(stepn + "");
+
         for (Particle px : particleList) { //Step 1, move
             px.setCenterX(px.getCenterX() + px.getV() * Math.cos(px.getTheta()));
             px.setCenterY(px.getCenterY() + px.getV() * Math.sin(px.getTheta()));
@@ -64,6 +67,8 @@ public class SimulationLeft {
             for (int t2 = t1+1; t2 < particleList.size(); t2++) {
                 //if (t1 == t2) continue;
                 Particle p1 = particleList.get(t1), p2 = particleList.get(t2);
+                if(p1.isSlaved()||p2.isSlaved()) continue; //Don't touch plz
+
                 //Convenience thingies
                 double p1x = p1.getCenterX(), p2x = p2.getCenterX(), p1y = p1.getCenterY(), p2y = p2.getCenterY();
                 double p1v = p1.getV(), p2v = p2.getV(), p1t = p1.getTheta(), p2t = p2.getTheta();
@@ -79,7 +84,11 @@ public class SimulationLeft {
 
                     //Work on conditions
                     if (combine) {//p1,p2 no slave, 2 particles combine
-
+                        if(p1.getSz()<p2.getSz()){ //The slave MUST be smaller than the master.
+                            p2.setSlave(p1);
+                        }else{
+                            p1.setSlave(p2);
+                        }
                     }
                     if (p1explode) {//p1 has slave and successful collision -> p1 explodes
 

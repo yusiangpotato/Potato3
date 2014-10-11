@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class SimulationLeft {
-    static final int Xsz = 500, Ysz = 650;
+    static final int Xsz = 450, Ysz = 650;
     static final boolean ENH_EDGE_CULL = true; //Make sure no particles "stick" to wall sides at the cost of precision
     static final boolean ENH_COLL_CULL = true; //Make sure no particles "stick" to each other at the cost of precision
     ArrayList<Particle> particleList = new ArrayList<Particle>();
@@ -25,7 +25,7 @@ public class SimulationLeft {
         p.setPrefSize(Xsz, Ysz);
         p.setMaxSize(Xsz, Ysz);
         p.getChildren().addAll(Lstepn);
-        for (int i = 0; i < 101; i++) {
+        for (int i = 0; i < 100; i++) {
             particleList.add(new Anion(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
             particleList.add(new Hydron(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
             particleList.add(new Hydroxide(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));

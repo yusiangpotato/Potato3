@@ -16,9 +16,9 @@ public class SimulationLeft {
     Pane p;
     int stepn = 0;
     Label Lstepn = new Label(stepn + "");
+    Random r = new Random();
 
     public Pane createSimulation() {
-        Random r = new Random();
         p = new Pane();
         p.setMinSize(Xsz, Ysz);
         p.setPrefSize(Xsz, Ysz);
@@ -79,7 +79,7 @@ public class SimulationLeft {
                     double phi = Math.atan((p2y - p1y) / (p2x - p1x));
                     if (p2.getCenterX() - p1.getCenterX() < 0) phi += Math.PI;
                     //if (phi < 2 * Math.PI) phi += 2 * Math.PI;
-                    boolean combine = false, p1explode = false, p2explode = false;
+                    boolean combine = false, p1explode = true, p2explode = true;
                     //TODO Determine conditions here
 
                     if (!p1.hasSlave() && !p2.hasSlave())
@@ -147,13 +147,18 @@ public class SimulationLeft {
                     }
                     if (p1explode) {//p1 has slave and successful collision -> p1 explodes and vice versa
                         Particle p3 = p1.getSlave();
-
+                        double rt = r.nextDouble() * 2 * Math.PI;
+                        p1.setTheta(p1.getTheta() + rt);
+                        p3.setTheta(p3.getTheta() - rt);
                         //TODO set end velo/KE
                         p1.rmSlave();
                     }
 
                     if (p2explode) {
                         Particle p3 = p2.getSlave();
+                        double rt = r.nextDouble() * 2 * Math.PI;
+                        p2.setTheta(p2.getTheta() + rt);
+                        p3.setTheta(p3.getTheta() - rt);
                         //TODO ditto
                         p2.rmSlave();
                     }

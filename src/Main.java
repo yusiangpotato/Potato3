@@ -18,7 +18,7 @@ public class Main extends Application {
         primaryStage.setScene(sx);
         primaryStage.setResizable(false);
         primaryStage.show();
-        for(int i=0;i<1500;i++) ssh.getSimX().run();
+        for (int i = 0; i < 1500; i++) ssh.getSimX().run();
         SimXService = Executors.newSingleThreadScheduledExecutor();
         SimXService.scheduleWithFixedDelay(ssh.getSimX(), 0, 25, TimeUnit.MILLISECONDS);
 

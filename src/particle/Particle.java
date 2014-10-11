@@ -22,7 +22,7 @@ public class Particle extends Circle {
     public Particle(double x, double y, int size, Paint paint, double vx, double ms) {
         super(x, y, size, paint);
 
-        theta = r.nextDouble() * 2 *Math.PI;
+        theta = r.nextDouble() * 2 * Math.PI;
         v = vx;
         sz = size;
         m = ms;
@@ -40,12 +40,12 @@ public class Particle extends Circle {
         slave.setSlaved(true);
     }
 
-    public void rmSlave(){
+    public void rmSlave() {
         slave.setSlaved(false);
         slave = null;
     }
 
-    public boolean hasSlave(){
+    public boolean hasSlave() {
         return slave != null;
     }
 
@@ -94,25 +94,31 @@ public class Particle extends Circle {
     public boolean isSlaved() {
         return isSlaved;
     }
-    
+
     public void setSlaved(boolean isSlaved) {
         this.isSlaved = isSlaved;
     }
 
-    public void setX(double n){
+    public void setX(double n) {
         this.setCenterX(n);
-        if(hasSlave()){
+        if (hasSlave()) {
             slave.setX(n);
         }
     }
-    public void setY(double n){
+
+    public void setY(double n) {
         this.setCenterY(n);
-        if(hasSlave()){
+        if (hasSlave()) {
             slave.setY(n);
         }
     }
 
-    public double getX(){return getCenterX();}
-    public double getY(){return getCenterY();}
+    public double getX() {
+        return getCenterX();
+    }
+
+    public double getY() {
+        return getCenterY();
+    }
 
 }

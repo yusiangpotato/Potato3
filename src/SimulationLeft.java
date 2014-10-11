@@ -1,9 +1,9 @@
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-
-import javafx.stage.Stage;
-import particle.*;
+import particle.Anion;
+import particle.Hydron;
+import particle.Hydroxide;
+import particle.Particle;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -36,7 +36,7 @@ public class SimulationLeft {
         return p;
     }
 
-    public void step(){
+    public void step() {
         stepn++;
         Lstepn.setText(stepn + "");
 
@@ -64,10 +64,10 @@ public class SimulationLeft {
         }
         //Step 3, particle-particle collisions
         for (int t1 = 0; t1 < particleList.size(); t1++) {
-            for (int t2 = t1+1; t2 < particleList.size(); t2++) {
+            for (int t2 = t1 + 1; t2 < particleList.size(); t2++) {
                 //if (t1 == t2) continue;
                 Particle p1 = particleList.get(t1), p2 = particleList.get(t2);
-                if(p1.isSlaved()||p2.isSlaved()) continue; //Don't touch plz
+                if (p1.isSlaved() || p2.isSlaved()) continue; //Don't touch plz
 
                 //Convenience thingies
                 double p1x = p1.getCenterX(), p2x = p2.getCenterX(), p1y = p1.getCenterY(), p2y = p2.getCenterY();
@@ -81,37 +81,37 @@ public class SimulationLeft {
                     boolean combine = false, p1explode = false, p2explode, nothing = false;
                     //TODO Determine conditions here
                     nothing = true;
-                    if(!(p1.hasSlave()||p2.hasSlave()))
-                        if(rand.nextInt() % 2 == 0)
-                            combine=true;
+                    if (!(p1.hasSlave() || p2.hasSlave()))
+                        if (rand.nextInt() % 2 == 0)
+                            combine = true;
 
-                    if(p1.hasSlave()){
-                        if(rand.nextInt() % 2 == 0) //ditto
-                            p1explode=true;
+                    if (p1.hasSlave()) {
+                        if (rand.nextInt() % 2 == 0) //ditto
+                            p1explode = true;
                     }
-                    if(p2.hasSlave()){
-                        if(rand.nextInt() % 2 == 0) //ditto
-                            p2explode=true;
+                    if (p2.hasSlave()) {
+                        if (rand.nextInt() % 2 == 0) //ditto
+                            p2explode = true;
                     }
 
 
                     //Work on conditions
                     if (combine) {//p1,p2 no slave, 2 particles combine
 
-	                        if(p1.getSz()<p2.getSz()){ //The slave MUST be smaller than the master.
-	                            p2.setSlave(p1);
-	                        }else{
-	                            p1.setSlave(p2);
-	                        }
+                        if (p1.getSz() < p2.getSz()) { //The slave MUST be smaller than the master.
+                            p2.setSlave(p1);
+                        } else {
+                            p1.setSlave(p2);
+                        }
 
                     }
                     if (p1explode) {//p1 has slave and successful collision -> p1 explodes and vice versa
-                    	p1.rmSlave();
+                        p1.rmSlave();
                         //TODO set end velo/KE
 
                     }
 
-                    if(p2explode){
+                    if (p2explode) {
                         p2.rmSlave();
                         //TODO ditto
                     }

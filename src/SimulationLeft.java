@@ -16,10 +16,9 @@ public class SimulationLeft {
     Pane p;
     int stepn = 0;
     Label Lstepn = new Label(stepn + "");
-    Random rand = new Random();
+    Random r = new Random();
 
     public Pane createSimulation() {
-        Random r = new Random();
         p = new Pane();
         p.setMinSize(Xsz, Ysz);
         p.setPrefSize(Xsz, Ysz);
@@ -29,7 +28,6 @@ public class SimulationLeft {
             particleList.add(new Anion(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
             particleList.add(new Hydron(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
             particleList.add(new Hydroxide(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
-
         }
         for (Particle px : particleList)
             p.getChildren().add(px);
@@ -84,7 +82,7 @@ public class SimulationLeft {
 
                     //Work on conditions
                     if (combine) {//p1,p2 no slave, 2 particles combine
-                    	if(rand.nextInt() % 2 == 0){ //temp rng
+                    	if(r.nextInt() % 2 == 0){ //temp rng
 	                        if(p1.getSz()<p2.getSz()){ //The slave MUST be smaller than the master.
 	                            p2.setSlave(p1);
 	                        }else{
@@ -94,11 +92,11 @@ public class SimulationLeft {
                     }
                     if (explode) {//p1 has slave and successful collision -> p1 explodes and vice versa
                     	if(p1.hasSlave()){
-                    		if(rand.nextInt() % 2 == 0) //ditto
+                    		if(r.nextInt() % 2 == 0) //ditto
                     			p1.rmSlave();
                     	}
                     	if(p2.hasSlave()){
-                    		if(rand.nextInt() % 2 == 0) //ditto
+                    		if(r.nextInt() % 2 == 0) //ditto
                     			p2.rmSlave();
                     	}
                     }

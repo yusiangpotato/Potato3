@@ -78,9 +78,9 @@ public class SimulationLeft {
                     double phi = Math.atan((p2y - p1y) / (p2x - p1x));
                     if (p2.getCenterX() - p1.getCenterX() < 0) phi += Math.PI;
                     //if (phi < 2 * Math.PI) phi += 2 * Math.PI;
-                    boolean combine = false, p1explode = false, p2explode=false, nothing = false;
+                    boolean combine = false, p1explode = false, p2explode = false;
                     //TODO Determine conditions here
-                    nothing = true;
+
                     if (!(p1.hasSlave() || p2.hasSlave()))
                         if (rand.nextInt() % 2 == 0)
                             combine = true;
@@ -104,19 +104,7 @@ public class SimulationLeft {
                             p1.setSlave(p2);
                         }
 
-                    }
-                    if (p1explode) {//p1 has slave and successful collision -> p1 explodes and vice versa
-                        p1.rmSlave();
-                        //TODO set end velo/KE
-
-                    }
-
-                    if (p2explode) {
-                        p2.rmSlave();
-                        //TODO ditto
-                    }
-
-                    if (nothing) {//No success, see https://en.wikipedia.org/wiki/Elastic_collision#Two-Dimensional_Collision_With_Two_Moving_Objects
+                    } else {//No success, see https://en.wikipedia.org/wiki/Elastic_collision#Two-Dimensional_Collision_With_Two_Moving_Objects
                         //http://williamecraver.wix.com/elastic-equations
                         //Argh math math math yuck
                         double p1vxf = ((p1v * cos(p1t - phi) * (p1m - p2m) + 2 * p2m * p2v * cos(p2t - phi)) / (p1m + p2m)) * cos(phi) + p1v * sin(p1t - phi) * cos(phi + Math.PI / 2);
@@ -142,6 +130,18 @@ public class SimulationLeft {
                         }
 
                     }
+                    if (p1explode) {//p1 has slave and successful collision -> p1 explodes and vice versa
+                        p1.rmSlave();
+                        //TODO set end velo/KE
+
+                    }
+
+                    if (p2explode) {
+                        p2.rmSlave();
+                        //TODO ditto
+                    }
+
+
                 }
 
             }

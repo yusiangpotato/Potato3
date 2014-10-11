@@ -21,7 +21,7 @@ public class Particle extends Circle {
 
     public Particle(double x, double y, int size, Paint paint, double vx, double ms) {
         super(x, y, size, paint);
-        theta = r.nextDouble() * Math.PI;
+        theta = r.nextDouble() * 2 *Math.PI;
         v = vx;
         sz = size;
         m = ms;

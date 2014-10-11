@@ -112,4 +112,7 @@ public class Particle extends Circle {
         }
     }
 
+    public double getX(){return getCenterX();}
+    public double getY(){return getCenterY();}
+
 }

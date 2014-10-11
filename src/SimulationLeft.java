@@ -28,7 +28,7 @@ public class SimulationLeft {
         for (int i = 0; i < 100; i++) {
             particleList.add(new Anion(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
             particleList.add(new Hydron(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
-            particleList.add(new Hydroxide(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
+            //particleList.add(new Hydroxide(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
 
         }
         for (Particle px : particleList)
@@ -41,10 +41,12 @@ public class SimulationLeft {
         Lstepn.setText(stepn + "");
 
         for (Particle px : particleList) { //Step 1, move
+            if (px.isSlaved()) continue; //Don't touch plz
             px.setX(px.getCenterX() + px.getV() * Math.cos(px.getTheta()));
             px.setY(px.getCenterY() + px.getV() * Math.sin(px.getTheta()));
         }
         for (Particle px : particleList) { //Step 2, check wall collision
+            if (px.isSlaved()) continue; //Don't touch plz
             if (px.getCenterX() + px.getSz() > Xsz) { //Negate and add PI
                 px.setTheta(Math.PI - px.getTheta());
                 if (ENH_EDGE_CULL) px.setX(Xsz - px.getSz() - 1);
@@ -81,17 +83,18 @@ public class SimulationLeft {
                     boolean combine = false, p1explode = false, p2explode = false;
                     //TODO Determine conditions here
 
-                    if (!(p1.hasSlave() || p2.hasSlave()))
-                        if (rand.nextInt() % 2 == 0)
-                            combine = true;
+                    if (!p1.hasSlave() && !p2.hasSlave())
+                        if (true){
+                            if(p1.getType().equals("A-")&&p2.getType().equals("H+")){combine = true;}
+                        }
 
                     if (p1.hasSlave()) {
                         if (rand.nextInt() % 2 == 0) //ditto
-                            p1explode = true;
+                            ;//p1explode = true;
                     }
                     if (p2.hasSlave()) {
                         if (rand.nextInt() % 2 == 0) //ditto
-                            p2explode = true;
+                            ;//p2explode = true;
                     }
 
 
@@ -100,11 +103,17 @@ public class SimulationLeft {
 
                         if (p1.getSz() < p2.getSz()) { //The slave MUST be smaller than the master.
                             p2.setSlave(p1);
+                            p1.setCenterX(p2.getCenterX());
+                            p1.setCenterY(p2.getCenterY());
+                            p1.setV(0);
                         } else {
                             p1.setSlave(p2);
+                            p2.setCenterX(p1.getCenterX());
+                            p2.setCenterY(p1.getCenterY());
+                            p2.setV(0);
                         }
 
-                    } else {//No success, see https://en.wikipedia.org/wiki/Elastic_collision#Two-Dimensional_Collision_With_Two_Moving_Objects
+                    } else {//No combine: Bounce off
                         //http://williamecraver.wix.com/elastic-equations
                         //Argh math math math yuck
                         double p1vxf = ((p1v * cos(p1t - phi) * (p1m - p2m) + 2 * p2m * p2v * cos(p2t - phi)) / (p1m + p2m)) * cos(phi) + p1v * sin(p1t - phi) * cos(phi + Math.PI / 2);
@@ -131,14 +140,16 @@ public class SimulationLeft {
 
                     }
                     if (p1explode) {//p1 has slave and successful collision -> p1 explodes and vice versa
-                        p1.rmSlave();
-                        //TODO set end velo/KE
+                        Particle p3 = p1.getSlave();
 
+                        //TODO set end velo/KE
+                        p1.rmSlave();
                     }
 
                     if (p2explode) {
-                        p2.rmSlave();
+                        Particle p3 = p2.getSlave();
                         //TODO ditto
+                        p2.rmSlave();
                     }
 
 

@@ -42,6 +42,7 @@ public class Particle extends Circle {
 
     public void rmSlave(){
         slave.setSlaved(false);
+        slave.setMaster(null);
         slave = null;
     }
     

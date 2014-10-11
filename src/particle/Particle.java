@@ -88,6 +88,10 @@ public class Particle extends Circle {
     public boolean isSlaved() {
         return isSlaved;
     }
+    
+    public boolean isMaster() {
+    	return (slave != null ? true : false);
+    }
 
     public void setSlaved(boolean isSlaved) {
         this.isSlaved = isSlaved;

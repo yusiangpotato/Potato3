@@ -19,11 +19,11 @@ public class Particle extends Circle {
     int sz;
 
     public Particle(double x, double y, int size, Paint paint, double vx, double ms) {
-        super(x,y,size, paint);
-        theta = r.nextDouble()*Math.PI;
+        super(x, y, size, paint);
+        theta = r.nextDouble() * Math.PI;
         v = vx;
         sz = size;
-        m=ms;
+        m = ms;
     }
 
 
@@ -50,8 +50,8 @@ public class Particle extends Circle {
     }
 
     public void setTheta(double theta) { // 0<Theta<2PI
-        while(theta<0) theta+=2*Math.PI;
-        while(theta>2*Math.PI) theta-=2*Math.PI;
+        while (theta < 0) theta += 2 * Math.PI;
+        while (theta > 2 * Math.PI) theta -= 2 * Math.PI;
         this.theta = theta;
     }
 

@@ -16,9 +16,10 @@ public class SimulationLeft {
     Pane p;
     int stepn = 0;
     Label Lstepn = new Label(stepn + "");
-    Random r = new Random();
+    Random rand = new Random();
 
     public Pane createSimulation() {
+        Random r = new Random();
         p = new Pane();
         p.setMinSize(Xsz, Ysz);
         p.setPrefSize(Xsz, Ysz);
@@ -28,6 +29,7 @@ public class SimulationLeft {
             particleList.add(new Anion(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
             particleList.add(new Hydron(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
             particleList.add(new Hydroxide(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
+
         }
         for (Particle px : particleList)
             p.getChildren().add(px);
@@ -76,30 +78,44 @@ public class SimulationLeft {
                     double phi = Math.atan((p2y - p1y) / (p2x - p1x));
                     if (p2.getCenterX() - p1.getCenterX() < 0) phi += Math.PI;
                     //if (phi < 2 * Math.PI) phi += 2 * Math.PI;
-                    boolean combine = false, explode = false, nothing = false;
+                    boolean combine = false, p1explode = false, p2explode, nothing = false;
                     //TODO Determine conditions here
                     nothing = true;
+                    if(!(p1.hasSlave()||p2.hasSlave()))
+                        if(rand.nextInt() % 2 == 0)
+                            combine=true;
+
+                    if(p1.hasSlave()){
+                        if(rand.nextInt() % 2 == 0) //ditto
+                            p1explode=true;
+                    }
+                    if(p2.hasSlave()){
+                        if(rand.nextInt() % 2 == 0) //ditto
+                            p2explode=true;
+                    }
+
 
                     //Work on conditions
                     if (combine) {//p1,p2 no slave, 2 particles combine
-                    	if(r.nextInt() % 2 == 0){ //temp rng
+
 	                        if(p1.getSz()<p2.getSz()){ //The slave MUST be smaller than the master.
 	                            p2.setSlave(p1);
 	                        }else{
 	                            p1.setSlave(p2);
 	                        }
-                    	}
+
                     }
-                    if (explode) {//p1 has slave and successful collision -> p1 explodes and vice versa
-                    	if(p1.hasSlave()){
-                    		if(r.nextInt() % 2 == 0) //ditto
-                    			p1.rmSlave();
-                    	}
-                    	if(p2.hasSlave()){
-                    		if(r.nextInt() % 2 == 0) //ditto
-                    			p2.rmSlave();
-                    	}
+                    if (p1explode) {//p1 has slave and successful collision -> p1 explodes and vice versa
+                    	p1.rmSlave();
+                        //TODO set end velo/KE
+
                     }
+
+                    if(p2explode){
+                        p2.rmSlave();
+                        //TODO ditto
+                    }
+
                     if (nothing) {//No success, see https://en.wikipedia.org/wiki/Elastic_collision#Two-Dimensional_Collision_With_Two_Moving_Objects
                         //http://williamecraver.wix.com/elastic-equations
                         //Argh math math math yuck

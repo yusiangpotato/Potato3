@@ -16,7 +16,7 @@ public class SimulationLeft {
     Pane p;
     int stepn = 0;
     Label Lstepn = new Label(stepn + "");
-
+    Random rand = new Random();
 
     public Pane createSimulation() {
         Random r = new Random();
@@ -84,17 +84,23 @@ public class SimulationLeft {
 
                     //Work on conditions
                     if (combine) {//p1,p2 no slave, 2 particles combine
-                        if(p1.getSz()<p2.getSz()){ //The slave MUST be smaller than the master.
-                            p2.setSlave(p1);
-                        }else{
-                            p1.setSlave(p2);
-                        }
+                    	if(rand.nextInt() % 2 == 0){ //temp rng
+	                        if(p1.getSz()<p2.getSz()){ //The slave MUST be smaller than the master.
+	                            p2.setSlave(p1);
+	                        }else{
+	                            p1.setSlave(p2);
+	                        }
+                    	}
                     }
                     if (explode) {//p1 has slave and successful collision -> p1 explodes and vice versa
-                    	if(p1.hasSlave())
-                    		p1.rmSlave();
-                    	if(p2.hasSlave())
-                    		p2.rmSlave();
+                    	if(p1.hasSlave()){
+                    		if(rand.nextInt() % 2 == 0) //ditto
+                    			p1.rmSlave();
+                    	}
+                    	if(p2.hasSlave()){
+                    		if(rand.nextInt() % 2 == 0) //ditto
+                    			p2.rmSlave();
+                    	}
                     }
                     if (nothing) {//No success, see https://en.wikipedia.org/wiki/Elastic_collision#Two-Dimensional_Collision_With_Two_Moving_Objects
                         //http://williamecraver.wix.com/elastic-equations

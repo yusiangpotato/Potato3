@@ -16,7 +16,6 @@ public class SimulationLeft {
     Pane p;
     int stepn = 0;
     Label Lstepn = new Label(stepn + "");
-    Random rand = new Random();
 
     public Pane createSimulation() {
         Random r = new Random();
@@ -84,16 +83,17 @@ public class SimulationLeft {
                     //TODO Determine conditions here
 
                     if (!p1.hasSlave() && !p2.hasSlave())
-                        if (true){
+                        if (Rng.chance(0.5)){
                             if(p1.getType().equals("A-")&&p2.getType().equals("H+")){combine = true;}
+                            if(p2.getType().equals("A-")&&p1.getType().equals("H+")){combine = true;}
                         }
 
                     if (p1.hasSlave()) {
-                        if (rand.nextInt() % 2 == 0) //ditto
+                        if (Rng.chance(0.5)) //ditto
                             ;//p1explode = true;
                     }
                     if (p2.hasSlave()) {
-                        if (rand.nextInt() % 2 == 0) //ditto
+                        if (Rng.chance(0.5)) //ditto
                             ;//p2explode = true;
                     }
 
@@ -102,11 +102,17 @@ public class SimulationLeft {
                     if (combine) {//p1,p2 no slave, 2 particles combine
 
                         if (p1.getSz() < p2.getSz()) { //The slave MUST be smaller than the master.
+                            p1.toFront();
+                            p2.toBack();
+                            p2.setV((p1v*p1m+p2v*p2m)/(p1m+p2m)); //Conservation of momentum
                             p2.setSlave(p1);
                             p1.setCenterX(p2.getCenterX());
                             p1.setCenterY(p2.getCenterY());
                             p1.setV(0);
                         } else {
+                            p2.toFront();
+                            p1.toBack();
+                            p1.setV((p1v*p1m+p2v*p2m)/(p1m+p2m)); //Conservation of momentum
                             p1.setSlave(p2);
                             p2.setCenterX(p1.getCenterX());
                             p2.setCenterY(p1.getCenterY());

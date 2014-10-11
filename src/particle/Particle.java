@@ -79,16 +79,8 @@ public class Particle extends Circle {
         return sz;
     }
 
-    public void setSz(int sz) {
-        this.sz = sz;
-    }
-
     public double getM() {
-        return m;
-    }
-
-    public void setM(double m) {
-        this.m = m;
+        return hasSlave()?m+slave.getM():m;
     }
 
     public boolean isSlaved() {

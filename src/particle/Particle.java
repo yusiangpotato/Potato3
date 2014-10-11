@@ -11,7 +11,6 @@ import java.util.Random;
 public class Particle extends Circle {
     static Random r = new Random();
     Particle slave = null;
-    Particle master = null;
     boolean isSlaved = false;
 
     String type;
@@ -37,17 +36,11 @@ public class Particle extends Circle {
     public void setSlave(Particle slave) {
         this.slave = slave;
         slave.setSlaved(true);
-        slave.setMaster(this);
     }
 
     public void rmSlave(){
         slave.setSlaved(false);
-        slave.setMaster(null);
         slave = null;
-    }
-    
-    public void setMaster(Particle master) {
-    	this.master = master;
     }
 
     public boolean hasSlave(){

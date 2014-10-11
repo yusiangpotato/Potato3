@@ -78,7 +78,7 @@ public class SimulationLeft {
                     double phi = Math.atan((p2y - p1y) / (p2x - p1x));
                     if (p2.getCenterX() - p1.getCenterX() < 0) phi += Math.PI;
                     //if (phi < 2 * Math.PI) phi += 2 * Math.PI;
-                    boolean combine = false, p1explode = false, p2explode, nothing = false;
+                    boolean combine = false, p1explode = false, p2explode=false, nothing = false;
                     //TODO Determine conditions here
                     nothing = true;
                     if (!(p1.hasSlave() || p2.hasSlave()))

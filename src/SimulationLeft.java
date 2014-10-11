@@ -1,7 +1,7 @@
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import particle.Anion;
-import particle.Particle;
+
+import particle.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -9,7 +9,7 @@ import java.util.Random;
 public class SimulationLeft {
     static final int Xsz = 500, Ysz = 650;
     static final boolean ENH_EDGE_CULL = true; //Make sure no particles "stick" to wall sides at the cost of precision
-    static final boolean ENH_COLL_CULL = true; //Make sure no particles "stick" to wall sides at the cost of precision
+    static final boolean ENH_COLL_CULL = true; //Make sure no particles "stick" to each other at the cost of precision
     ArrayList<Particle> particleList = new ArrayList<Particle>();
     Pane p;
     int stepn = 0;
@@ -25,6 +25,8 @@ public class SimulationLeft {
         p.getChildren().addAll(Lstepn);
         for (int i = 0; i < 50; i++) {
             particleList.add(new Anion(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
+            particleList.add(new Hydron(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
+            particleList.add(new Hydroxide(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
 
         }
         for (Particle px : particleList)
@@ -59,8 +61,8 @@ public class SimulationLeft {
         }
         //Step 3, particle-particle collisions
         for (int t1 = 0; t1 < particleList.size(); t1++) {
-            for (int t2 = 0; t2 < particleList.size(); t2++) {
-                if (t1 == t2) continue;
+            for (int t2 = t1+1; t2 < particleList.size(); t2++) {
+                //if (t1 == t2) continue;
                 Particle p1 = particleList.get(t1), p2 = particleList.get(t2);
                 //Convenience thingies
                 double p1x = p1.getCenterX(), p2x = p2.getCenterX(), p1y = p1.getCenterY(), p2y = p2.getCenterY();
@@ -72,7 +74,7 @@ public class SimulationLeft {
                     if (p2.getCenterX() - p1.getCenterX() < 0) phi += Math.PI;
                     //if (phi < 2 * Math.PI) phi += 2 * Math.PI;
                     boolean combine = false, p1explode = false, p2explode = false, nothing = false;
-                    //Determine conditions here
+                    //TODO Determine conditions here
                     nothing = true;
 
                     //Work on conditions

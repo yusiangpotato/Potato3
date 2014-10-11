@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
  */
 public class Hydroxide extends Particle {
     public Hydroxide(double x, double y, double v) {
-        super(x, y, 4, Color.BLUE, v, 17);
+        super(x, y, 4, new Color(0,0,1.0,0.5), v, 17);
         //this.setFill(Color.BLUE);
         type = "OH-";
     }

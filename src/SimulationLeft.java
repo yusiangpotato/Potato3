@@ -41,25 +41,25 @@ public class SimulationLeft {
         Lstepn.setText(stepn + "");
 
         for (Particle px : particleList) { //Step 1, move
-            px.setCenterX(px.getCenterX() + px.getV() * Math.cos(px.getTheta()));
-            px.setCenterY(px.getCenterY() + px.getV() * Math.sin(px.getTheta()));
+            px.setX(px.getCenterX() + px.getV() * Math.cos(px.getTheta()));
+            px.setY(px.getCenterY() + px.getV() * Math.sin(px.getTheta()));
         }
         for (Particle px : particleList) { //Step 2, check wall collision
             if (px.getCenterX() + px.getSz() > Xsz) { //Negate and add PI
                 px.setTheta(Math.PI - px.getTheta());
-                if (ENH_EDGE_CULL) px.setCenterX(Xsz - px.getSz() - 1);
+                if (ENH_EDGE_CULL) px.setX(Xsz - px.getSz() - 1);
             }
             if (px.getCenterX() - px.getSz() < 0) { //Negate and add PI
                 px.setTheta(Math.PI - px.getTheta());
-                if (ENH_EDGE_CULL) px.setCenterX(px.getSz() + 1);
+                if (ENH_EDGE_CULL) px.setX(px.getSz() + 1);
             }
             if (px.getCenterY() + px.getSz() > Ysz) { //Negate
                 px.setTheta(-px.getTheta());
-                if (ENH_EDGE_CULL) px.setCenterY(Ysz - px.getSz() - 1);
+                if (ENH_EDGE_CULL) px.setY(Ysz - px.getSz() - 1);
             }
             if (px.getCenterY() - px.getSz() < 0) { //Negate
                 px.setTheta(-px.getTheta());
-                if (ENH_EDGE_CULL) px.setCenterY(px.getSz() + 1);
+                if (ENH_EDGE_CULL) px.setY(px.getSz() + 1);
             }
         }
         //Step 3, particle-particle collisions
@@ -123,8 +123,8 @@ public class SimulationLeft {
                         p2.setV(p2vf);
                         p2.setTheta(p2tf);
                         if (ENH_COLL_CULL) {//Cull loopthrough for p2
-                            p2.setCenterX(p1x + (p1.getSz() + p2.getSz()) * Math.cos(phi));
-                            p2.setCenterY(p1y + (p1.getSz() + p2.getSz()) * Math.sin(phi));
+                            p2.setX(p1x + (p1.getSz() + p2.getSz()) * Math.cos(phi));
+                            p2.setY(p1y + (p1.getSz() + p2.getSz()) * Math.sin(phi));
                         }
 
                     }

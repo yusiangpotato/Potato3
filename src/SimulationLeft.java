@@ -86,12 +86,13 @@ public class SimulationLeft {
                     if (combine) {//p1,p2 no slave, 2 particles combine
                         if(p1.getSz()<p2.getSz()){ //The slave MUST be smaller than the master.
                             p2.setSlave(p1);
+                            
                         }else{
                             p1.setSlave(p2);
                         }
                     }
                     if (p1explode) {//p1 has slave and successful collision -> p1 explodes
-
+                    	
                     }
                     if (p2explode) {//Ditto
 

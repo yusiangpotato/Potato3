@@ -43,6 +43,10 @@ public class Particle extends Circle {
         slave = null;
     }
 
+    public boolean hasSlave(){
+        return slave != null;
+    }
+
     public String getType() {
         return type;
     }
@@ -89,10 +93,6 @@ public class Particle extends Circle {
         return isSlaved;
     }
     
-    public boolean isMaster() {
-    	return (slave != null ? true : false);
-    }
-
     public void setSlaved(boolean isSlaved) {
         this.isSlaved = isSlaved;
     }

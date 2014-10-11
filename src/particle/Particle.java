@@ -18,12 +18,12 @@ public class Particle extends Circle {
     double m;
     int sz;
 
-    public Particle(double x, double y, int size, Paint paint, double vx) {
+    public Particle(double x, double y, int size, Paint paint, double vx, double ms) {
         super(x,y,size, paint);
         theta = r.nextDouble()*Math.PI;
         v = vx;
         sz = size;
-
+        m=ms;
     }
 
 
@@ -69,5 +69,13 @@ public class Particle extends Circle {
 
     public void setSz(int sz) {
         this.sz = sz;
+    }
+
+    public double getM() {
+        return m;
+    }
+
+    public void setM(double m) {
+        this.m = m;
     }
 }

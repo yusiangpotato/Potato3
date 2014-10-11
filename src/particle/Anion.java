@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
  */
 public class Anion extends Particle { //The usage is HCO2-
     public Anion(double x,double y,double v) {
-        super(x,y,5, Color.GREENYELLOW, v);
+        super(x,y,7, Color.GREEN, v,45);
         //this.setFill(Color.Gr);
         this.type = "A-";
     }

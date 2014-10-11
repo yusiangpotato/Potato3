@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
  */
 public class Hydron extends Particle {
     public Hydron(double x, double y,double v) {
-        super(x,y,1, Color.RED, v);
+        super(x,y,1, Color.RED, v,1);
         //this.setFill(Color.DARKRED);
         type = "H+";
 

@@ -10,7 +10,7 @@ public class Main extends Application {
         ssh = new StageSecondaryHelper();
         primaryStage.setTitle("Chemister Project");
 
-        Scene sx = new Scene(ssh.createSecondaryStage(primaryStage), 1000, 680); //TODO adjust accordingly
+        Scene sx = new Scene(ssh.createSecondaryStage(primaryStage), 1000, 680);
         primaryStage.setScene(sx);
         primaryStage.setResizable(false);
         primaryStage.show();

@@ -101,7 +101,6 @@ public class SimulationLeft {
                     if (p2.getCenterX() - p1.getCenterX() < 0) phi += Math.PI;
                     //if (phi < 2 * Math.PI) phi += 2 * Math.PI;
                     boolean combine = false, p1explode = false, p2explode = false, neutralize = false;
-                    //TODO Determine conditions here
 
                     if (!p1.hasSlave() && !p2.hasSlave())
                         if (Rng.chance(collisionChance)) {
@@ -133,7 +132,6 @@ public class SimulationLeft {
 
                     //Work on conditions
                     if (combine) {//p1,p2 no slave, 2 particles combine
-                        //TODO set theta
                         if (p1.getSz() < p2.getSz()) { //The slave MUST be smaller than the master.
                             p2.setSlave(p1);
 

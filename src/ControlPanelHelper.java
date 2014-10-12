@@ -53,7 +53,8 @@ public class ControlPanelHelper {
         txfCmd = new TextField();
         Button btnExecCmd = new Button("!");
         btnExecCmd.setMinSize(25, 25);
-        HBox hbCmd = new HBox(txfCmd, btnExecCmd);
+        HBox hbCmd = new HBox();
+        hbCmd.getChildren().addAll(txfCmd, btnExecCmd);
         vb.getChildren().addAll(/*btnTemp1, btnTemp2,*/ btnTemp3, btnTemp4, btnTemp5, btnTemp6, btnTemp7, sdrCollision, lblCollision, sdrExplosion, lblExplosion, lblpHCounter, hbCmd);
         sdrCollision.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> observable,

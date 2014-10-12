@@ -14,9 +14,10 @@ public class StageSecondaryHelper {
         bp.setLeft(sl.createSimulation());
         SimulationRight sr = new SimulationRight();
         bp.setRight(sr.createSimulation());
-        //Create the SimulationX
-        simX = new SimX(sl, sr);
         ControlPanelHelper cph = new ControlPanelHelper();
+        //Create the SimulationController
+        simX = new SimX(cph, sl, sr);
+
         bp.setCenter(cph.createControlPanel(simX));
 
         return bp;

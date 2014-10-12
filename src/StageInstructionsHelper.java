@@ -13,7 +13,7 @@ public class StageInstructionsHelper {
         s.setScene(new Scene(bp));
 
         Text txtInstructions = new Text("" +
-                "One might look at the buttons on the screen and wonder, what do they do? \n" +
+                "One might look at the buttons and sliders on the screen and wonder, what do they do? \n" +
                 "Yet another might try clicking on them, and see the effect they have.\n" +
                 "Perhaps one should try to do the latter and not appear to be a total retard.");
         txtInstructions.setTextAlignment(TextAlignment.CENTER);

@@ -23,7 +23,14 @@ public class MenuBarHelper {
                 StageInstructionsHelper.createStageInstructions();
             }
         });
-        menuHelp.getItems().addAll(menuItemAbout, menuItemInstructions);
+        MenuItem menuItemCommands = new MenuItem("Commands");
+        menuItemCommands.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                StageCommandHelper.createStageCommands();
+            }
+        });
+        menuHelp.getItems().addAll(menuItemAbout, menuItemInstructions, menuItemCommands);
 
         menubar.getMenus().addAll(menuHelp);
 

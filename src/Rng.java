@@ -5,7 +5,8 @@ import java.util.Random;
  */
 public class Rng {
     static Random r = new Random();
-    static boolean chance(double d){
-        return d>r.nextDouble();
+
+    static boolean chance(double d) {
+        return d > r.nextDouble();
     }
 }

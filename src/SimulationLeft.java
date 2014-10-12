@@ -285,6 +285,7 @@ public class SimulationLeft {
     public void clear() {
         p.getChildren().clear();
         particleList.clear();
+        eki = 0;
     }
 
     double cos(double x) {

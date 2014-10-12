@@ -96,7 +96,7 @@ public class SimX extends Thread implements Runnable {
     }
 
     public void setExecFreq(double freq) throws IllegalArgumentException {
-        if (freq > 1000 || freq < 0) throw new IllegalArgumentException("And what do you think you are doing, hmm?");
+        if (freq > 10000 || freq < 0) throw new IllegalArgumentException("And what do you think you are doing, hmm?");
 
         shutdown();
         SimXService = Executors.newSingleThreadScheduledExecutor();
@@ -165,6 +165,8 @@ public class SimX extends Thread implements Runnable {
                     setExplosionChance(ep);
                     cph.updateSliders();
                     return true;
+                case "WHEE":
+                    sl.whee();
                 default:
                     return false;
             }

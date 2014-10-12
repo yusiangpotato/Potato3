@@ -29,7 +29,7 @@ public class SimulationLeft {
         p.setMinSize(Xsz, Ysz);
         p.setPrefSize(Xsz, Ysz);
         p.setMaxSize(Xsz, Ysz);
-        p.getChildren().addAll(Lstepn);
+        //p.getChildren().addAll(Lstepn);
         //p.getChildren().add(init);
         for (int i = 0; i < 50; i++) {
             particleList.add(new Anion(r.nextDouble() * Xsz, r.nextDouble() * Ysz, r.nextGaussian()));
@@ -227,9 +227,9 @@ public class SimulationLeft {
     }
 
     public void addParticle(String type) {
-        if (particleList.size() > 500) {
+        if (particleList.size() > 10000) {
             //Sorry
-            System.out.println("500 particles reached");
+            System.out.println("10k particles reached");
             return;
         }
 
@@ -305,6 +305,11 @@ public class SimulationLeft {
 
     double sqr(double x) {
         return Math.pow(x, 2);
+    }
+
+    void whee() {
+        for (Particle px : particleList)
+            px.setTheta(Math.PI + px.getTheta());
     }
 
 

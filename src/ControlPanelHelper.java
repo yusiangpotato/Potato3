@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 public class ControlPanelHelper {
     SimX simX ;
     Slider sdrCollision, sdrExplosion;
-    Label lblCollision, lblExplosion;
+    Label lblCollision, lblExplosion, lblpHCounter;
     public VBox createControlPanel(final SimX simX) {
         VBox vb = new VBox(10); //spacing between elements
         vb.setAlignment(Pos.CENTER);
@@ -36,7 +36,8 @@ public class ControlPanelHelper {
         sdrExplosion.setMinorTickCount(4);
         sdrExplosion.setBlockIncrement(0.05f);
         lblExplosion = new Label("Explosion probability: " + String.format("%.2f", sdrExplosion.getValue()));
-        vb.getChildren().addAll(btnTemp1, btnTemp2, btnTemp3, sdrCollision, lblCollision, sdrExplosion, lblExplosion);
+        lblpHCounter = new Label("pH: " + simX.getpH());
+        vb.getChildren().addAll(btnTemp1, btnTemp2, btnTemp3, sdrCollision, lblCollision, sdrExplosion, lblExplosion, lblpHCounter);
         sdrCollision.valueProperty().addListener(new ChangeListener<Number>(){
         	public void changed(ObservableValue<? extends Number> observable,
         			Number oldValue, Number newValue){
@@ -71,6 +72,10 @@ public class ControlPanelHelper {
     	lblCollision.setText("Collision probability: " + String.format("%.2f", sdrCollision.getValue()));
     	sdrExplosion.setValue(simX.getExplosionChance());
     	lblExplosion.setText("Explosion probability: " + String.format("%.2f", sdrExplosion.getValue()));
+    }
+    
+    public void updatepH(){
+    	lblpHCounter.setText("pH: " + simX.getpH());
     }
 
 }

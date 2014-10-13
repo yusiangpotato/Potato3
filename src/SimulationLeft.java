@@ -1,6 +1,7 @@
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import particle.Anion;
 import particle.Hydron;
 import particle.Hydroxide;
@@ -10,13 +11,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class SimulationLeft {
-    static int Xsz = 800, Ysz = 650;
-    static double CF = 2, eki;
-    static boolean ENH_EDGE_CULL = true; //Make sure no particles "stick" to wall sides at the cost of precision
-    static boolean ENH_COLL_CULL = true; //Make sure no particles "stick" to each other at the cost of precision
-    static boolean COLL_ENABLED = true;
+    int Xsz = 800, Ysz = 650;
+    double CF = 2, eki;
+    boolean ENH_EDGE_CULL = true; //Make sure no particles "stick" to wall sides at the cost of precision
+    boolean ENH_COLL_CULL = true; //Make sure no particles "stick" to each other at the cost of precision
+    boolean COLL_ENABLED = true;
     ArrayList<Particle> particleList = new ArrayList<Particle>();
     Pane p;
+    Rectangle rect;
     int stepn = 0;
     double Hplus = Double.NaN;
     Exma HplusExma = new Exma(0.01);
@@ -25,12 +27,14 @@ public class SimulationLeft {
     Random r = new Random();
 
     public Pane createSimulation() {
-        Label init = new Label("Initializing... ");
+        //Label init = new Label("Initializing... ");
 
         p = new Pane();
         p.setMinSize(Xsz, Ysz);
         p.setPrefSize(Xsz, Ysz);
         p.setMaxSize(Xsz, Ysz);
+        rect = new Rectangle(Xsz, Ysz, Color.gray(0.9));
+        p.getChildren().add(rect);
         //p.getChildren().addAll(Lstepn);
         //p.getChildren().add(init);
         for (int i = 0; i < 50; i++) {
@@ -48,6 +52,7 @@ public class SimulationLeft {
 
     public void step() {
         stepn++;
+        rect.toBack();
         //Lstepn.setText(stepn + "");
         double ek = 0;
         Hplus = 1E-7;
@@ -259,6 +264,7 @@ public class SimulationLeft {
             p.getChildren().add(px.getSlave());
             particleList.add(px.getSlave());
         }
+        rect.toBack();
 
     }
 
@@ -284,6 +290,7 @@ public class SimulationLeft {
 
     public void clear() {
         p.getChildren().clear();
+        p.getChildren().add(rect);
         particleList.clear();
         eki = 0;
     }
@@ -313,34 +320,39 @@ public class SimulationLeft {
             px.setTheta(Math.PI + px.getTheta());
     }
 
-    public static void setEdgeCull(boolean ENH_EDGE_CULL) {
-        SimulationLeft.ENH_EDGE_CULL = ENH_EDGE_CULL;
+    public void setEdgeCull(boolean ENH_EDGE_CULL) {
+        this.ENH_EDGE_CULL = ENH_EDGE_CULL;
     }
 
-    public static void setCollCull(boolean ENH_COLL_CULL) {
-        SimulationLeft.ENH_COLL_CULL = ENH_COLL_CULL;
+    public void setCollCull(boolean ENH_COLL_CULL) {
+        this.ENH_COLL_CULL = ENH_COLL_CULL;
     }
 
-    public static boolean isCOLL_ENABLED() {
+    public boolean isCOLL_ENABLED() {
         return COLL_ENABLED;
     }
 
-    public static void setCOLL_ENABLED(boolean COLL_ENABLED) {
-        SimulationLeft.COLL_ENABLED = COLL_ENABLED;
+    public void setCOLL_ENABLED(boolean COLL_ENABLED) {
+        this.COLL_ENABLED = COLL_ENABLED;
     }
 
     public void rainbow() {
         for (Particle px : particleList) {
             px.setFill(new Color(r.nextDouble(), r.nextDouble(), r.nextDouble(), 1));
         }
+        rect.setFill(new Color(r.nextDouble(), r.nextDouble(), r.nextDouble(), 1));
     }
 
-    public static void setXsz(int xsz) {
+    public void setXsz(int xsz) {
         Xsz = xsz;
+        rect.setWidth(xsz);
+        rect.toBack();
     }
 
-    public static void setYsz(int ysz) {
+    public void setYsz(int ysz) {
         Ysz = ysz;
+        rect.setHeight(ysz);
+        rect.toBack();
     }
 
     public void setTransparent(boolean t) {

@@ -219,6 +219,7 @@ public class SimX extends Thread implements Runnable {
                 case "DEFAULT":
                 case "DEPUN":
                 case "DEAHN":
+                    setExecFreq(50);
                     setCollisionChance(.5f);
                     setExplosionChance(.5f);
                     cph.updateSliders();
@@ -230,7 +231,8 @@ public class SimX extends Thread implements Runnable {
                     execs = "";
                     every = 0;
                     sl.setTransparent(false);
-                    setExecFreq(50);
+                    sl.setXsz(800);
+                    sl.setYsz(650);
                     return true;
                 case "CC":
                     sl.setCollCull(Integer.parseInt(x[1]) % 2 != 0);
@@ -251,14 +253,14 @@ public class SimX extends Thread implements Runnable {
                     execCmd("freq 100 and every 10 rainbows");
                     return true;
 
-                /*
+
                 case "XSZ":
                     sl.setXsz(Integer.parseInt(x[1]));
                     return true;
                 case "YSZ":
                     sl.setYsz(Integer.parseInt(x[1]));
                     return true;
-                */
+
                 case "TRANS":
                 case "ALPHA":
                     sl.setTransparent(Integer.parseInt(x[1]) % 2 == 0);
@@ -268,7 +270,7 @@ public class SimX extends Thread implements Runnable {
                     return true;
 
 
-                case "EVERY":
+                case "EVERY": //Try code: Every n (something) and every 0 --> Gives a one-shot command n cycles later
 
                     if (Integer.parseInt(x[1]) == 0) {
                         execs = "";

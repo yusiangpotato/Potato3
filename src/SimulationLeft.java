@@ -1,5 +1,6 @@
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import particle.Anion;
 import particle.Hydron;
 import particle.Hydroxide;
@@ -11,8 +12,9 @@ import java.util.Random;
 public class SimulationLeft {
     static final int Xsz = 800, Ysz = 650;
     static double CF = 2, eki;
-    static final boolean ENH_EDGE_CULL = true; //Make sure no particles "stick" to wall sides at the cost of precision
-    static final boolean ENH_COLL_CULL = true; //Make sure no particles "stick" to each other at the cost of precision
+    static boolean ENH_EDGE_CULL = true; //Make sure no particles "stick" to wall sides at the cost of precision
+    static boolean ENH_COLL_CULL = true; //Make sure no particles "stick" to each other at the cost of precision
+    static boolean COLL_ENABLED = true;
     ArrayList<Particle> particleList = new ArrayList<Particle>();
     Pane p;
     int stepn = 0;
@@ -69,19 +71,19 @@ public class SimulationLeft {
             if (px.isSlaved()) continue; //Don't touch plz
             if (px.getCenterX() + px.getSz() > Xsz) { //Negate and add PI
                 px.setTheta(Math.PI - px.getTheta());
-                if (ENH_EDGE_CULL) px.setX(Xsz - px.getSz() - 1);
+                if (ENH_EDGE_CULL) px.setX(Xsz - px.getSz());
             }
             if (px.getCenterX() - px.getSz() < 0) { //Negate and add PI
                 px.setTheta(Math.PI - px.getTheta());
-                if (ENH_EDGE_CULL) px.setX(px.getSz() + 1);
+                if (ENH_EDGE_CULL) px.setX(px.getSz());
             }
             if (px.getCenterY() + px.getSz() > Ysz) { //Negate
                 px.setTheta(-px.getTheta());
-                if (ENH_EDGE_CULL) px.setY(Ysz - px.getSz() - 1);
+                if (ENH_EDGE_CULL) px.setY(Ysz - px.getSz());
             }
             if (px.getCenterY() - px.getSz() < 0) { //Negate
                 px.setTheta(-px.getTheta());
-                if (ENH_EDGE_CULL) px.setY(px.getSz() + 1);
+                if (ENH_EDGE_CULL) px.setY(px.getSz());
             }
         }
         //Step 3, particle-particle collisions
@@ -147,7 +149,7 @@ public class SimulationLeft {
                         eki -= p1.getM() * sqr(p1.getV()) / 2;
                         eki -= p2.getM() * sqr(p2.getV()) / 2;
                         //REMEMBER TO CLEANUP!
-                    } else {//No combine: Bounce off
+                    } else if (COLL_ENABLED) {//No combine: Bounce off
                         //http://williamecraver.wix.com/elastic-equations
                         //Argh math math math yuck
                         double p1vxf = ((p1v * cos(p1t - phi) * (p1m - p2m) + 2 * p2m * p2v * cos(p2t - phi)) / (p1m + p2m)) * cos(phi) + p1v * sin(p1t - phi) * cos(phi + Math.PI / 2);
@@ -227,7 +229,7 @@ public class SimulationLeft {
     public void addParticle(String type) {
         if (particleList.size() > 10000) {
             //Sorry
-            System.out.println("10k particles reached");
+            //System.out.println("10k particles reached");
             return;
         }
 
@@ -311,5 +313,26 @@ public class SimulationLeft {
             px.setTheta(Math.PI + px.getTheta());
     }
 
+    public static void setEdgeCull(boolean ENH_EDGE_CULL) {
+        SimulationLeft.ENH_EDGE_CULL = ENH_EDGE_CULL;
+    }
+
+    public static void setCollCull(boolean ENH_COLL_CULL) {
+        SimulationLeft.ENH_COLL_CULL = ENH_COLL_CULL;
+    }
+
+    public static boolean isCOLL_ENABLED() {
+        return COLL_ENABLED;
+    }
+
+    public static void setCOLL_ENABLED(boolean COLL_ENABLED) {
+        SimulationLeft.COLL_ENABLED = COLL_ENABLED;
+    }
+
+    public void rainbow() {
+        for (Particle px : particleList) {
+            px.setFill(new Color(r.nextDouble(), r.nextDouble(), r.nextDouble(), 1));
+        }
+    }
 
 }

@@ -123,20 +123,36 @@ public class SimX extends Thread implements Runnable {
                     return true;
                 case "H+":
                 case "H":
+                    if (x.length == 1) {
+                        addHplus();
+                        return true;
+                    }
                     for (int i = 0; i < Integer.parseInt(x[1]); i++)
                         addHplus();
                     return true;
                 case "HA":
+                    if (x.length == 1) {
+                        addHA();
+                        return true;
+                    }
                     for (int i = 0; i < Integer.parseInt(x[1]); i++)
                         addHA();
                     return true;
                 case "A":
                 case "A-":
+                    if (x.length == 1) {
+                        addAminus();
+                        return true;
+                    }
                     for (int i = 0; i < Integer.parseInt(x[1]); i++)
                         addAminus();
                     return true;
                 case "OH":
                 case "OH-":
+                    if (x.length == 1) {
+                        addOHminus();
+                        return true;
+                    }
                     for (int i = 0; i < Integer.parseInt(x[1]); i++)
                         addOHminus();
                     return true;
@@ -167,6 +183,40 @@ public class SimX extends Thread implements Runnable {
                     return true;
                 case "WHEE":
                     sl.whee();
+                    return true;
+                case "PUN":
+                    setCollisionChance(.4f);
+                    setExplosionChance(0f);
+                    cph.updateSliders();
+                    sl.setCollCull(false);
+                    sl.setEdgeCull(false);
+                    sl.setCOLL_ENABLED(false);
+                    return true;
+                case "DEFAULT":
+                case "DEPUN":
+                    setCollisionChance(.5f);
+                    setExplosionChance(.5f);
+                    cph.updateSliders();
+                    sl.setCollCull(true);
+                    sl.setEdgeCull(true);
+                    sl.setCOLL_ENABLED(true);
+                    return true;
+                case "CC":
+                    sl.setCollCull(Integer.parseInt(x[1]) == 0 ? false : true);
+                    return true;
+                case "EC":
+                    sl.setEdgeCull(Integer.parseInt(x[1]) == 0 ? false : true);
+                    return true;
+                case "CE":
+                    sl.setCOLL_ENABLED(Integer.parseInt(x[1]) == 0 ? false : true);
+                    return true;
+                case "PINK":
+                case "FLUFFY":
+                case "UNICORNS":
+                case "RAINBOWS":
+                    sl.rainbow();
+                    return true;
+
                 default:
                     return false;
             }

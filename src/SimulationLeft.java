@@ -192,7 +192,7 @@ public class SimulationLeft {
                         p1.setStoredEnergy(0);
                         p3.setX(p1x + (p1.getSz() + p3.getSz()) * Math.cos(lambda));
                         p3.setY(p1y + (p1.getSz() + p3.getSz()) * Math.sin(lambda));
-                    }
+                    }//
 
                     if (p2explode) {
                         Particle p3 = p2.getSlave();

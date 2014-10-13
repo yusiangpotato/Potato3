@@ -269,11 +269,14 @@ public class SimX extends Thread implements Runnable {
 
 
                 case "EVERY":
-                    every = Integer.parseInt(x[1]);
-                    if (every == 0) {
+
+                    if (Integer.parseInt(x[1]) == 0) {
                         execs = "";
                         return true;
+                    } else if (every != Integer.parseInt(x[1])) {
+                        execs = "";
                     }
+                    every = Integer.parseInt(x[1]);
                     //execs="";
                     execs += "and ";
                     for (int i = 2; i < x.length; i++) {

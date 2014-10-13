@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class SimulationLeft {
-    static final int Xsz = 800, Ysz = 650;
+    static int Xsz = 800, Ysz = 650;
     static double CF = 2, eki;
     static boolean ENH_EDGE_CULL = true; //Make sure no particles "stick" to wall sides at the cost of precision
     static boolean ENH_COLL_CULL = true; //Make sure no particles "stick" to each other at the cost of precision
@@ -335,4 +335,23 @@ public class SimulationLeft {
         }
     }
 
+    public static void setXsz(int xsz) {
+        Xsz = xsz;
+    }
+
+    public static void setYsz(int ysz) {
+        Ysz = ysz;
+    }
+
+    public void setTransparent(boolean t) {
+        //System.out.print(t);
+        for (Particle px : particleList) {
+            Color c = (Color) px.getFill();
+            px.setFill(new Color(c.getRed(), c.getGreen(), c.getBlue(), t ? 0 : 1));
+        }
+    }
+
+    public int getStepN() {
+        return stepn;
+    }
 }

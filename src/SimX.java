@@ -12,6 +12,9 @@ public class SimX extends Thread implements Runnable {
     SimulationRight sr;
     ControlPanelHelper cph;
     ScheduledExecutorService SimXService;
+    int every = 1;
+    String execs = "";
+    final int cnt[] = {1};
 
     public SimX(ControlPanelHelper cph, SimulationLeft sl, SimulationRight sr) {
         this.sl = sl;
@@ -19,19 +22,23 @@ public class SimX extends Thread implements Runnable {
         this.cph = cph;
         SimXService = Executors.newSingleThreadScheduledExecutor();
         setExecFreq(50);
+        //for(int i=0;i<1000;i++) run();
     }
 
     @Override
     public void run() {
+        ;
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 sl.step();
                 //sr.step();
                 cph.updatepH();
+                if (every != 0 && cnt[0] % every == 0)
+                    execCmd(execs);
             }
         });
-
+        cnt[0]++;
     }
 
     public void setCollisionChance(double cc) {
@@ -114,9 +121,25 @@ public class SimX extends Thread implements Runnable {
     }
 
     public boolean execCmd(String cmd) {
-        cmd = cmd.toUpperCase();
-        String[] x = cmd.split(" ");
         try {
+            cmd = cmd.toUpperCase();
+            String[] x = cmd.split(" ");
+
+            for (int i = 0; i < x.length; i++) {
+                if (!x[0].equals("EVERY") && x[i].equals("AND")) {
+                    String nextExec = "";
+                    for (int j = i + 1; j < x.length; j++) {
+                        nextExec += x[j] + " ";
+                    }
+                    execCmd(nextExec);
+                    break;
+                }
+
+            }
+            for (int i = 0; i < x.length; i++) {
+                if (!x[0].equals("EVERY") && x[i].equals("@"))
+                    x[i] = "" + sl.getStepN();
+            }
             switch (x[0]) {
                 case "FREQ":
                     setExecFreq(Double.parseDouble(x[1]));
@@ -192,23 +215,31 @@ public class SimX extends Thread implements Runnable {
                     sl.setEdgeCull(false);
                     sl.setCOLL_ENABLED(false);
                     return true;
+                case "RESET":
                 case "DEFAULT":
                 case "DEPUN":
+                case "DEAHN":
                     setCollisionChance(.5f);
                     setExplosionChance(.5f);
                     cph.updateSliders();
                     sl.setCollCull(true);
                     sl.setEdgeCull(true);
                     sl.setCOLL_ENABLED(true);
+                    clear();
+                    execCmd("a 50 and h 50 and ha 50");
+                    execs = "";
+                    every = 0;
+                    sl.setTransparent(false);
+                    setExecFreq(50);
                     return true;
                 case "CC":
-                    sl.setCollCull(Integer.parseInt(x[1]) == 0 ? false : true);
+                    sl.setCollCull(Integer.parseInt(x[1]) % 2 != 0);
                     return true;
                 case "EC":
-                    sl.setEdgeCull(Integer.parseInt(x[1]) == 0 ? false : true);
+                    sl.setEdgeCull(Integer.parseInt(x[1]) % 2 != 0);
                     return true;
                 case "CE":
-                    sl.setCOLL_ENABLED(Integer.parseInt(x[1]) == 0 ? false : true);
+                    sl.setCOLL_ENABLED(Integer.parseInt(x[1]) % 2 != 0);
                     return true;
                 case "PINK":
                 case "FLUFFY":
@@ -216,7 +247,42 @@ public class SimX extends Thread implements Runnable {
                 case "RAINBOWS":
                     sl.rainbow();
                     return true;
+                case "DISCO":
+                    execCmd("freq 100 and every 10 rainbows");
+                    return true;
 
+                /*
+                case "XSZ":
+                    sl.setXsz(Integer.parseInt(x[1]));
+                    return true;
+                case "YSZ":
+                    sl.setYsz(Integer.parseInt(x[1]));
+                    return true;
+                */
+                case "TRANS":
+                case "ALPHA":
+                    sl.setTransparent(Integer.parseInt(x[1]) % 2 == 0);
+                    return true;
+                case "AHN":
+                    execCmd("freq 20 and every 1 alpha @");
+                    return true;
+
+
+                case "EVERY":
+                    every = Integer.parseInt(x[1]);
+                    if (every == 0) {
+                        execs = "";
+                        return true;
+                    }
+                    //execs="";
+                    execs += "and ";
+                    for (int i = 2; i < x.length; i++) {
+                        execs += x[i] + " ";
+                    }
+                    return true;
+                case "POTATE":
+                    execCmd("x and a 250 and disco");
+                    return true;
                 default:
                     return false;
             }

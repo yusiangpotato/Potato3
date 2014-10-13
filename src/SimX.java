@@ -289,7 +289,7 @@ public class SimX extends Thread implements Runnable {
         } catch (Exception e) {
             return false;
         }
-        //return true;
+        return true;
     }
 
 }
